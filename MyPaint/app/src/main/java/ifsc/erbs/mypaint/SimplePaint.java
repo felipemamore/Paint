@@ -15,8 +15,7 @@ import java.util.ArrayList;
 
 public class SimplePaint extends View {
 
-    Paint currentPaint;
-    Path currentPath;
+    ;
 
     ArrayList<Layer> layers;
     Layer currentLayer;
@@ -60,17 +59,25 @@ public class SimplePaint extends View {
 
         switch (event.getAction()){
             case (MotionEvent.ACTION_DOWN):
+                currentLayer.mPath.moveTo(lx, ly);
                 currentLayer.mPath.lineTo(lx, ly);
-                currentLayer.mPath.lineTo();
                 break;
             case  (MotionEvent.ACTION_MOVE):
-                currentPath.lineTo(lx, ly);
+                currentLayer.mPath.moveTo(lx, ly);
+
                 break;
             case (MotionEvent.ACTION_UP):
+                this.addNewLayer();
 
                 break;
         }
         invalidate();
         return true;
+    }
+
+    public void clearLayers(){
+        layer = new ArrayList<Layer>();
+        this.addNewLayer();
+        invalidate();
     }
 }
